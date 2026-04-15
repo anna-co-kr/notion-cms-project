@@ -1,0 +1,151 @@
+{
+  "tasks": [
+    {
+      "id": "f941bc67-6359-495b-8472-3b791e471c7f",
+      "name": "ROADMAP 완료 상태 동기화",
+      "description": "코드베이스에 이미 구현된 Task 003~009 항목들을 ROADMAP.md에서 ✅로 업데이트한다. Phase 2(Task 003, 006), Phase 3(Task 004, 007, 007-1), Phase 4(Task 005, 008, 009)를 완료 처리한다.",
+      "status": "completed",
+      "dependencies": [],
+      "createdAt": "2026-04-15T08:41:55.436Z",
+      "updatedAt": "2026-04-15T08:45:57.837Z",
+      "relatedFiles": [
+        {
+          "path": "docs/ROADMAP.md",
+          "type": "TO_MODIFY",
+          "description": "개발 로드맵 - Phase 2~4 완료 항목 ✅ 처리"
+        }
+      ],
+      "implementationGuide": "docs/ROADMAP.md 파일에서 다음 항목들을 ✅ 완료 처리:\n- Task 003: 공통 컴포넌트 라이브러리 구현 (PostCard, PostList, shadcn/ui 컴포넌트)\n- Task 006: Notion API 클라이언트 및 데이터 레이어 구축\n- Task 004: 홈/카테고리/상세 페이지 UI 완성\n- Task 007: Notion 블록 → Markdown 렌더링 파이프라인\n- Task 007-1: 글 목록/상세 실데이터 연결 및 통합 검증\n- Task 005: 검색 UX 및 커스텀 훅 구현\n- Task 008: 카테고리 필터링 및 검색 실데이터 연결\n- Task 009: SEO 및 메타데이터 최적화 (layout.tsx 루트 메타데이터로 완료 확인됨)",
+      "verificationCriteria": "ROADMAP.md에서 Task 003, 004, 005, 006, 007, 007-1, 008, 009 항목이 모두 ✅로 표시됨. Phase 2와 Phase 3 헤더에도 ✅ 표시됨.",
+      "analysisResult": "Notion CMS 기반 개인 개발 블로그 프로젝트. Phase 1~4 핵심 구현이 완료된 상태에서 ROADMAP 동기화, 커버 이미지 최적화, E2E 테스트, 반응형 점검, Vercel 배포를 완료하는 것이 목표. 기술 스택: Next.js 16.2.3 App Router + TypeScript 5 + TailwindCSS v4 + shadcn/ui + @notionhq/client v5.",
+      "summary": "docs/ROADMAP.md에서 Phase 2(✅), Phase 3(✅), Phase 4(✅) 헤더 업데이트 완료. Task 003, 006, 004, 007, 007-1, 005, 008, 009 항목 모두 ✅ 완료 처리됨. 각 태스크의 실제 구현 결과(파일명, 함수명)를 반영하여 정확하게 기술. Task 009-1은 Playwright 테스트 미수행으로 진행 예정 상태 유지.",
+      "completedAt": "2026-04-15T08:45:57.836Z"
+    },
+    {
+      "id": "a886921b-b2ed-409c-8980-0212f6ff6bac",
+      "name": "PostCard 커버 이미지 next/image 최적화",
+      "description": "PostCard 컴포넌트에 커버 이미지 표시 기능을 추가하고 next/image 컴포넌트로 최적화한다. 상세 페이지(posts/[slug]/page.tsx)에도 커버 이미지를 next/image로 표시한다. next.config.ts의 remotePatterns는 이미 설정됨.",
+      "notes": "next.config.ts에 remotePatterns 이미 등록됨(prod-files-secure.s3.us-west-2.amazonaws.com, *.notion.so, www.notion.so). Notion 이미지는 1시간 만료이므로 revalidate: 3600 캐싱 전략과 이미 맞춰져 있음.",
+      "status": "completed",
+      "dependencies": [],
+      "createdAt": "2026-04-15T08:41:55.436Z",
+      "updatedAt": "2026-04-15T08:48:57.297Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/blog/post-card.tsx",
+          "type": "TO_MODIFY",
+          "description": "PostCard - 커버 이미지 next/image 추가",
+          "lineStart": 1,
+          "lineEnd": 58
+        },
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "상세 페이지 - 커버 이미지 next/image 추가",
+          "lineStart": 70,
+          "lineEnd": 109
+        },
+        {
+          "path": "next.config.ts",
+          "type": "REFERENCE",
+          "description": "이미지 remotePatterns 설정 확인용"
+        }
+      ],
+      "implementationGuide": "1. src/components/blog/post-card.tsx 수정:\n   - CardHeader 위에 coverImage 조건부 렌더링 추가\n   - Image 컴포넌트: width/height 고정 또는 fill+aspect-ratio 컨테이너\n   - alt 텍스트: post.title 사용\n   - className: 'rounded-t-lg object-cover w-full aspect-video'\n\n2. src/app/posts/[slug]/page.tsx 수정:\n   - header 섹션 상단에 post.coverImage 조건부 렌더링\n   - Image 컴포넌트: fill 방식, 부모에 relative + aspect-video 컨테이너\n\n3. import 추가: import Image from 'next/image'",
+      "verificationCriteria": "npm run check-all 통과. PostCard에서 coverImage가 있는 포스트는 이미지가 표시되고 없는 경우 이미지 없이 정상 렌더링. 상세 페이지에서도 동일하게 동작.",
+      "analysisResult": "Notion CMS 기반 개인 개발 블로그 프로젝트. Phase 1~4 핵심 구현이 완료된 상태에서 ROADMAP 동기화, 커버 이미지 최적화, E2E 테스트, 반응형 점검, Vercel 배포를 완료하는 것이 목표. 기술 스택: Next.js 16.2.3 App Router + TypeScript 5 + TailwindCSS v4 + shadcn/ui + @notionhq/client v5.",
+      "summary": "PostCard(post-card.tsx)에 next/image fill 방식 커버 이미지 추가. 호버 시 scale-105 트랜지션 적용. 상세 페이지(posts/[slug]/page.tsx)에도 priority+fill 방식 커버 이미지 추가. 두 파일 모두 coverImage null 체크로 이미지 없는 경우 정상 렌더링. .prettierignore에 shrimp_data/, .mcp.json 등 자동 생성 파일 추가. npm run check-all 통과.",
+      "completedAt": "2026-04-15T08:48:57.295Z"
+    },
+    {
+      "id": "e0ef8472-f9e4-4461-ba95-258b7ea0ed55",
+      "name": "Playwright E2E 핵심 플로우 테스트",
+      "description": "개발 서버(localhost:3000)에서 Playwright MCP로 핵심 사용자 플로우를 검증한다. 홈 렌더링, 검색, 카드 클릭 → 상세 진입, 카테고리 이동, 404 처리를 확인한다.",
+      "notes": "NOTION_TOKEN과 NOTION_DATABASE_ID가 .env.local에 설정된 경우 실 데이터로 테스트. 미설정 시 빈 상태 UI(환경 변수 안내 메시지)가 렌더링되는 것을 확인.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "a886921b-b2ed-409c-8980-0212f6ff6bac"
+        }
+      ],
+      "createdAt": "2026-04-15T08:41:55.436Z",
+      "updatedAt": "2026-04-15T08:41:55.436Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/page.tsx",
+          "type": "REFERENCE",
+          "description": "홈 페이지 - 테스트 대상"
+        },
+        {
+          "path": "src/app/posts/[slug]/page.tsx",
+          "type": "REFERENCE",
+          "description": "상세 페이지 - 테스트 대상"
+        },
+        {
+          "path": "src/app/categories/[category]/page.tsx",
+          "type": "REFERENCE",
+          "description": "카테고리 페이지 - 테스트 대상"
+        }
+      ],
+      "implementationGuide": "Playwright MCP 도구 순서:\n1. mcp__playwright__browser_navigate → http://localhost:3000\n2. mcp__playwright__browser_snapshot → 홈 페이지 렌더링 확인 (PostList, 검색창, 카테고리 배지)\n3. mcp__playwright__browser_fill_form → 검색창에 검색어 입력 후 필터링 동작 확인\n4. mcp__playwright__browser_click → 포스트 카드 클릭 → 상세 페이지 진입 확인\n5. mcp__playwright__browser_navigate → /categories/[존재하는카테고리] → 카테고리 페이지 확인\n6. mcp__playwright__browser_navigate → /posts/nonexistent-slug-12345 → 404 페이지 확인\n7. mcp__playwright__browser_navigate → /categories/nonexistent-category → 404 페이지 확인\n\n※ 환경 변수 미설정 시: '환경 변수를 설정해주세요' 메시지 확인으로 빈 상태 UI 검증",
+      "verificationCriteria": "모든 시나리오에서 페이지가 정상 렌더링됨. 404 URL 접근 시 not-found 페이지가 표시됨. 검색 입력 후 300ms 이내 필터링 동작.",
+      "analysisResult": "Notion CMS 기반 개인 개발 블로그 프로젝트. Phase 1~4 핵심 구현이 완료된 상태에서 ROADMAP 동기화, 커버 이미지 최적화, E2E 테스트, 반응형 점검, Vercel 배포를 완료하는 것이 목표. 기술 스택: Next.js 16.2.3 App Router + TypeScript 5 + TailwindCSS v4 + shadcn/ui + @notionhq/client v5."
+    },
+    {
+      "id": "e3910f87-7572-4a04-abe5-e196d5e86093",
+      "name": "반응형 최종 점검 및 빌드 검증",
+      "description": "Playwright MCP로 모바일(375px)/태블릿(768px)/데스크톱(1280px) 3개 뷰포트에서 주요 페이지 레이아웃을 검증한다. npm run check-all과 npm run build가 통과하는지 확인한다.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "e0ef8472-f9e4-4461-ba95-258b7ea0ed55"
+        }
+      ],
+      "createdAt": "2026-04-15T08:41:55.436Z",
+      "updatedAt": "2026-04-15T08:41:55.436Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/blog/post-list.tsx",
+          "type": "REFERENCE",
+          "description": "반응형 그리드 기준 확인"
+        },
+        {
+          "path": "src/components/layout/header.tsx",
+          "type": "REFERENCE",
+          "description": "헤더 반응형 확인"
+        },
+        {
+          "path": "src/components/navigation/mobile-nav.tsx",
+          "type": "REFERENCE",
+          "description": "모바일 네비게이션 확인"
+        }
+      ],
+      "implementationGuide": "1. Playwright 뷰포트 검증:\n   mcp__playwright__browser_resize → 375x812 (모바일)\n   → 홈/상세/카테고리 스냅샷 확인 (그리드 1열, 모바일 네비게이션)\n   mcp__playwright__browser_resize → 768x1024 (태블릿)\n   → 그리드 2열 확인\n   mcp__playwright__browser_resize → 1280x800 (데스크톱)\n   → 그리드 3열 확인\n\n2. 빌드 검증:\n   npm run check-all (typecheck + lint + format:check)\n   npm run build\n\n3. 발견된 레이아웃 문제 수정 후 재검증",
+      "verificationCriteria": "3개 뷰포트에서 레이아웃 깨짐 없음. npm run check-all 통과. npm run build 성공.",
+      "analysisResult": "Notion CMS 기반 개인 개발 블로그 프로젝트. Phase 1~4 핵심 구현이 완료된 상태에서 ROADMAP 동기화, 커버 이미지 최적화, E2E 테스트, 반응형 점검, Vercel 배포를 완료하는 것이 목표. 기술 스택: Next.js 16.2.3 App Router + TypeScript 5 + TailwindCSS v4 + shadcn/ui + @notionhq/client v5."
+    },
+    {
+      "id": "11f4e9cf-2d90-439c-b927-7a704d68b050",
+      "name": "ROADMAP Phase 5 진행 상황 업데이트",
+      "description": "반응형 점검과 빌드 검증 완료 후 ROADMAP.md에서 Task 009-1, Task 010, Task 010-1을 ✅로 업데이트한다. Vercel 배포(Task 011) 항목을 진행 준비 상태로 표시한다.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "e3910f87-7572-4a04-abe5-e196d5e86093"
+        }
+      ],
+      "createdAt": "2026-04-15T08:41:55.436Z",
+      "updatedAt": "2026-04-15T08:41:55.436Z",
+      "relatedFiles": [
+        {
+          "path": "docs/ROADMAP.md",
+          "type": "TO_MODIFY",
+          "description": "Phase 5 진행 상황 업데이트"
+        }
+      ],
+      "implementationGuide": "docs/ROADMAP.md에서:\n- Task 009-1 완료 처리 ✅\n- Task 010 완료 처리 ✅\n- Task 010-1 완료 처리 ✅\n- Phase 5 헤더에 진행 중 표시 (Task 011 제외)",
+      "verificationCriteria": "ROADMAP.md에서 Task 009-1, 010, 010-1이 ✅로 표시됨.",
+      "analysisResult": "Notion CMS 기반 개인 개발 블로그 프로젝트. Phase 1~4 핵심 구현이 완료된 상태에서 ROADMAP 동기화, 커버 이미지 최적화, E2E 테스트, 반응형 점검, Vercel 배포를 완료하는 것이 목표. 기술 스택: Next.js 16.2.3 App Router + TypeScript 5 + TailwindCSS v4 + shadcn/ui + @notionhq/client v5."
+    }
+  ]
+}
